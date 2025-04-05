@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthAI - Nail Disease Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <button class="menu-toggle" aria-label="Toggle Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay"></div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../img/logo.png" alt="HealthAI Logo">
+                <span class="logo-text">Health AI</span>
+            </div>
+            <nav>
+                <a href="index.html" class="btn active">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="templates/predict.html" class="btn">
+                    <i class="fas fa-microscope"></i>
+                    Prediction
+                </a>
+                <a href="templates/about.html" class="btn">
+                    <i class="fas fa-info-circle"></i>
+                    About
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Early Disease Prediction</p>
+                <small>v3.0.0</small>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="hero-section">
+                <h1>Welcome to HealthAI</h1>
+                <p>Advanced nail disease prediction using cutting-edge AI technology. Get instant health analysis and early detection for better healthcare outcomes.</p>
+
+            </div>
+            <div class="predict-button-container">
+                <a href="../templates/predict.html" class="predict-button">
+                    <span>Predict Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="img/accuracy.png" alt="Accuracy">
+                    <h3>High Accuracy</h3>
+                    <p>Our AI model provides accurate predictions with state-of-the-art technology and continuous learning.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="img/easy.png" alt="Easy to Use">
+                    <h3>Easy to Use</h3>
+                    <p>Simple and intuitive interface designed for both healthcare professionals and individuals.</p>
+                </div>
+                <div class="feature-card">
+                    <img src="img/health.png" alt="Health Monitoring">
+                    <h3>Health Monitoring</h3>
+                    <p>Track and monitor nail health conditions over time for better health management.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Close menu when clicking a link (for mobile)
+            const navLinks = document.querySelectorAll('.sidebar .btn');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .cta-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .cta-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .cta-text {
+            max-width: 500px;
+        }
+
+        .cta-text h2 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .cta-text p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .cta-feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-feature i {
+            color: #3498db;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-feature span {
+            color: #2c3e50;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .cta-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .button-text {
+            margin-right: 1rem;
+        }
+
+        .button-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover .button-icon {
+            transform: translateX(5px);
+        }
+
+        .cta-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cta-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .cta-section {
+                padding: 2rem;
+            }
+
+            .cta-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-text {
+                text-align: center;
+            }
+
+            .cta-features {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .predict-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .predict-button {
+            display: inline-flex;
+            align-items: center;
+            background: #3498db;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .predict-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        .predict-button span {
+            margin-right: 1rem;
+        }
+
+        .predict-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .predict-button:hover i {
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            .predict-button {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem 2rem;
+            }
+        }
+    </style>
+</body>
+</html> 

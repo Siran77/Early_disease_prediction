@@ -1,0 +1,885 @@
+<!-- Updated predict_adult.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#3498db">
+    <title>Adult Nail Disease Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/capture.js"></script>
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 
+                0 8px 32px rgba(52, 152, 219, 0.15),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glassmorphism::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
+            z-index: 0;
+        }
+
+        .glassmorphism h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glassmorphism .subtitle {
+            color: #34495e;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-section, .details-section, .upload-section, .result-section {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 
+                0 8px 32px rgba(52, 152, 219, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-section h3, .details-section h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-section li {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .info-section i {
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .upload-area:hover {
+            background: rgba(52, 152, 219, 0.05);
+            border-color: #2980b9;
+        }
+
+        .upload-area i {
+            color: #3498db;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover i {
+            transform: scale(1.1);
+        }
+
+        .upload-area h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0.5rem;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .preview-container {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .preview-container img {
+            max-width: 100%;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(52, 152, 219, 0.15);
+        }
+
+        .preview-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .analyze-btn,
+        .secondary-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .analyze-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .secondary-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .secondary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(52, 152, 219, 0.1);
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-header i {
+            color: #3498db;
+            font-size: 2rem;
+        }
+
+        .result-header h3 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin: 0;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .result-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .result-item .label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .result-item .value {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .loading-overlay {
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(52, 152, 219, 0.1);
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: none;
+            text-align: center;
+            font-size: 1.1rem;
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+
+        .camera-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(52, 152, 219, 0.15);
+        }
+
+        #cameraPreview {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .camera-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .camera-controls button {
+            margin: 0;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        .form-error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-group.error input,
+        .form-group.error select {
+            border-color: #e74c3c;
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        .upload-section {
+            pointer-events: none;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section.active {
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0 15px;
+                margin: 0 auto;
+                box-sizing: border-box;
+                overflow-x: hidden !important;
+            }
+
+            .content {
+                width: 100%; 
+                padding: 0;
+                margin: 0 auto;
+                box-sizing: border-box;
+            }
+
+            .glassmorphism {
+                width: 100%;
+                max-width: 100%;
+                margin: 1rem auto;
+                padding: 1rem;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            body {
+                overflow-x: hidden;
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .upload-section,
+            .details-section,
+            .info-section {
+                width: 100%;
+                max-width: 100%;
+                margin: 1rem auto;
+                padding: 1rem;
+                box-sizing: border-box;
+            }
+
+            .form-row {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .form-group {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                padding: 0.75rem;
+                box-sizing: border-box;
+            }
+
+            .upload-area {
+                width: 100%;
+                max-width: 100%;
+                padding: 1.5rem;
+                box-sizing: border-box;
+            }
+
+            .preview-container {
+                width: 100%;
+                max-width: 100%;
+                margin: 1rem auto;
+            }
+
+            .preview-container img {
+                max-width: 100%;
+                width: 100%;
+                height: auto;
+            }
+
+            .preview-controls {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .analyze-btn,
+            .secondary-btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .glassmorphism h1 {
+                font-size: 2rem;
+            }
+
+            .glassmorphism .subtitle {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .info-section li {
+                font-size: 1rem;
+            }
+
+            .form-group label {
+                font-size: 1rem;
+            }
+
+            .upload-area i {
+                font-size: 2.5rem;
+            }
+
+            .upload-area h3 {
+                font-size: 1.3rem;
+            }
+
+            .result-card {
+                padding: 1.5rem;
+            }
+
+            .result-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .result-item .label {
+                font-size: 1rem;
+            }
+
+            .result-item .value {
+                font-size: 1rem;
+            }
+
+            .camera-container {
+                max-width: 100%;
+            }
+
+            .camera-controls {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .camera-controls button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+        <div class="container" style="overflow-x: hidden; overflow-y: auto;">
+
+        <button class="menu-toggle" aria-label="Toggle Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay"></div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../img/logo.png" alt="HealthAI Logo">
+                <span class="logo-text">Health AI</span>
+            </div>
+            <nav>
+                <a href="../index.html" class="btn">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="../templates/predict.html" class="btn active">
+                    <i class="fas fa-microscope"></i>
+                    Prediction
+                </a>
+                <a href="../templates/about.html" class="btn">
+                    <i class="fas fa-info-circle"></i>
+                    About
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Early Disease Prediction</p>
+                <small>v3.0.0</small>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="glassmorphism animated-fade">
+                <h1>Early Disease Prediction</h1>
+                <p class="subtitle">Upload your nail image for instant health analysis</p>
+
+                <div class="error-message" id="formError"></div>
+
+                <div class="info-section">
+                    <h3>Before Uploading</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Ensure good lighting for clear image</li>
+                        <li><i class="fas fa-check-circle"></i> Capture the entire nail area</li>
+                        <li><i class="fas fa-check-circle"></i> Keep the camera steady</li>
+                        <li><i class="fas fa-check-circle"></i> Remove any nail polish</li>
+                    </ul>
+                </div>
+
+                <div class="details-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" placeholder="Enter your age" required min="1" max="120">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="diabetes">Are you diabetic?</label>
+                        <select id="diabetes" required>
+                            <option value="">Select option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                            <option value="unknown">Don't Know</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="upload-section">
+                    <h3>Upload Nail Image</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-upload"></i>
+                        <h3>Upload Image</h3>
+                        <p>Upload an existing image of your nail</p>
+                        <input type="file" id="fileInput" accept="image/*" capture="environment" style="display: none;">
+                        <button class="upload-btn" id="uploadBtn">
+                            <i class="fas fa-upload"></i>
+                            Upload Image
+                        </button>
+                    </div>
+                    <div class="preview-container" id="previewContainer" style="display: none;">
+                        <img id="previewImage" alt="Preview">
+                        <div class="preview-controls">
+                            <button class="analyze-btn" id="analyzeBtn">
+                                <i class="fas fa-microscope"></i>
+                                Analyze Image
+                            </button>
+                            <button class="secondary-btn" id="retakeBtn">
+                                <i class="fas fa-redo"></i>
+                                Retake
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <i class="fas fa-clipboard-check"></i>
+                            <h3>Analysis Results</h3>
+                        </div>
+                        <div class="result-content">
+                            <div class="result-item">
+                                <span class="label">Predicted Condition:</span>
+                                <span class="value" id="predictionResult">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Description:</span>
+                                <span class="value" id="descriptionResult">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Confidence Level:</span>
+                                <span class="value" id="confidenceResult">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Recommended Action:</span>
+                                <span class="value" id="recommendationResult">-</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">chain of diseases:</span>
+                                <span class="value" id="chain_of_diseases">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing image...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Close menu when clicking a link (for mobile)
+            const navLinks = document.querySelectorAll('.sidebar .btn');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+
+            // Form validation
+            const form = document.querySelector('.details-section');
+            const uploadSection = document.querySelector('.upload-section');
+            const nameInput = document.getElementById('name');
+            const ageInput = document.getElementById('age');
+            const genderSelect = document.getElementById('gender');
+            const diabetesSelect = document.getElementById('diabetes');
+
+            // Add error elements to each form group
+            document.querySelectorAll('.form-group').forEach(group => {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'form-error';
+                group.appendChild(errorDiv);
+            });
+
+            function validateForm() {
+                let isValid = true;
+                const formGroups = document.querySelectorAll('.form-group');
+
+                // Reset previous errors
+                formGroups.forEach(group => {
+                    group.classList.remove('error');
+                    group.querySelector('.form-error').textContent = '';
+                });
+
+                // Validate name
+                if (!nameInput.value.trim()) {
+                    nameInput.parentElement.classList.add('error');
+                    nameInput.parentElement.querySelector('.form-error').textContent = 'Please enter your name';
+                    isValid = false;
+                }
+
+                // Validate age
+                if (!ageInput.value || ageInput.value < 1 || ageInput.value > 120) {
+                    ageInput.parentElement.classList.add('error');
+                    ageInput.parentElement.querySelector('.form-error').textContent = 'Please enter a valid age (1-120)';
+                    isValid = false;
+                }
+
+                // Validate gender
+                if (!genderSelect.value) {
+                    genderSelect.parentElement.classList.add('error');
+                    genderSelect.parentElement.querySelector('.form-error').textContent = 'Please select your gender';
+                    isValid = false;
+                }
+
+                // Validate diabetes
+                if (!diabetesSelect.value) {
+                    diabetesSelect.parentElement.classList.add('error');
+                    diabetesSelect.parentElement.querySelector('.form-error').textContent = 'Please select if you are diabetic';
+                    isValid = false;
+                }
+
+                // Enable/disable upload section based on form validity
+                if (isValid) {
+                    uploadSection.classList.add('active');
+                } else {
+                    uploadSection.classList.remove('active');
+                }
+
+                return isValid;
+            }
+
+            // Add input event listeners for real-time validation
+            [nameInput, ageInput, genderSelect, diabetesSelect].forEach(input => {
+                input.addEventListener('input', validateForm);
+            });
+
+            // File upload functionality
+            const uploadArea = document.getElementById('uploadArea');
+            const previewContainer = document.getElementById('previewContainer');
+            const previewImage = document.getElementById('previewImage');
+            const fileInput = document.getElementById('fileInput');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const retakeBtn = document.getElementById('retakeBtn');
+
+            // Handle upload button click
+            uploadBtn.addEventListener('click', () => {
+                if (!validateForm()) {
+                    alert('Please fill in all required fields correctly before uploading an image');
+                    return;
+                }
+                fileInput.click();
+            });
+
+            // Handle file input change
+            fileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    try {
+                        const base64Data = await fileToBase64(file);
+                        previewImage.src = `data:${file.type};base64,${base64Data}`;
+                        uploadArea.style.display = 'none';
+                        previewContainer.style.display = 'block';
+                    } catch (error) {
+                        alert('Error processing image: ' + error.message);
+                    }
+                }
+            });
+
+            // Handle retake button click
+            retakeBtn.addEventListener('click', () => {
+                previewContainer.style.display = 'none';
+                uploadArea.style.display = 'block';
+            });
+
+            // Handle analyze button click
+            analyzeBtn.addEventListener('click', async () => {
+                try {
+                    if (!validateForm()) {
+                        alert('Please fill in all required fields correctly before analyzing');
+                        return;
+                    }
+
+                    if (!previewImage || !previewImage.src) {
+                        alert('Please upload an image first');
+                        return;
+                    }
+
+                    // Disable analyze button and show loading state
+                    analyzeBtn.disabled = true;
+                    analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+                    
+                    // Get base64 data from image preview
+                    const base64Data = previewImage.src.split(',')[1];
+                    
+                    // Process the image using Roboflow API
+                    await processImage(base64Data);
+                    
+                    // Re-enable analyze button
+                    analyzeBtn.disabled = false;
+                    analyzeBtn.innerHTML = '<i class="fas fa-microscope"></i> Analyze Image';
+                } catch (error) {
+                    console.error('Error analyzing image:', error);
+                    alert('Error analyzing image: ' + error.message);
+                    // Re-enable analyze button
+                    analyzeBtn.disabled = false;
+                    analyzeBtn.innerHTML = '<i class="fas fa-microscope"></i> Analyze Image';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

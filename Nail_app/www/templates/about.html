@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#3498db">
+    <title>About HealthAI - Nail Disease Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 
+                0 8px 32px rgba(52, 152, 219, 0.15),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glassmorphism h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-section {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 
+                0 8px 32px rgba(52, 152, 219, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-section h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-section p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .glassmorphism {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .glassmorphism h1 {
+                font-size: 2rem;
+            }
+
+            .about-section {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+
+            .about-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .about-section p {
+                font-size: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="overflow-x: hidden; overflow-y: auto;">
+        <button class="menu-toggle" aria-label="Toggle Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay"></div>
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../img/logo.png" alt="HealthAI Logo">
+                <span class="logo-text">Health AI</span>
+            </div>
+            <nav>
+                <a href="../index.html" class="btn">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="../templates/predict.html" class="btn">
+                    <i class="fas fa-microscope"></i>
+                    Prediction
+                </a>
+                <a href="../templates/about.html" class="btn active">
+                    <i class="fas fa-info-circle"></i>
+                    About
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>Early Disease Prediction</p>
+                <small>v3.0.0</small>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="glassmorphism animated-fade">
+                <h1>About HealthAI</h1>
+                
+                <div class="about-section">
+                    <h2>Our Mission</h2>
+                    <p>HealthAI is dedicated to revolutionizing healthcare through advanced artificial intelligence technology. Our platform focuses on early detection of nail diseases, providing quick and accurate analysis to help individuals and healthcare professionals make informed decisions about their health.</p>
+                </div>
+
+                <div class="about-section">
+                    <h2>How It Works</h2>
+                    <p>Our AI-powered system analyzes nail images using state-of-the-art machine learning algorithms. By examining subtle patterns and changes in nail appearance, we can identify potential health conditions early, allowing for timely intervention and treatment.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI-Powered Analysis</h3>
+                        <p>Advanced machine learning algorithms for accurate disease detection and prediction.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Quick Results</h3>
+                        <p>Get instant analysis and recommendations within seconds of uploading your image.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Privacy Focused</h3>
+                        <p>Your data is handled with the highest security standards and privacy protection.</p>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h2>Disclaimer</h2>
+                    <p>HealthAI is designed to assist in early detection and should not replace professional medical advice. Always consult with healthcare providers for proper diagnosis and treatment.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Close menu when clicking a link (for mobile)
+            const navLinks = document.querySelectorAll('.sidebar .btn');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
